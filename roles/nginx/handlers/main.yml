@@ -1,0 +1,16 @@
+---
+- name: Start NGINX service
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Soft reload NGINX
+  shell: 'nginx -s reload'
+  become: yes
+
+- name: Restart NGINX
+  service:
+    name: nginx
+    state: restarted
+  become: yes

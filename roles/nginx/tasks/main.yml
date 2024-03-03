@@ -1,0 +1,25 @@
+---
+- name: Install nginx
+  apt :
+    name: nginx-full
+    state: latest
+
+- name: Install nginx config for PHP
+  copy:
+    src: default
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install PHP index page
+  copy:
+    src: index.php
+    dest: /var/www/html/index.php
+    owner: root
+    group: www-data
+    mode: 0664
+  notify: Soft reload NGINX
+
+- name: Flush handlers
+  meta: flush_handlers

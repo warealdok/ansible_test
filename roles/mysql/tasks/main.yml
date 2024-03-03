@@ -1,0 +1,8 @@
+---
+- name: Install packages for mysql
+  become: yes
+  apt :
+    name: "{{ mysql_extensions }}"
+    state: latest
+    install_recommends: yes
+...

@@ -1,0 +1,25 @@
+---
+- hosts: webservers
+  vars:
+    packages:
+      - neovim
+      - wget
+      - curl
+      - gnupg
+      - htop
+      - tmux
+      - git
+      - ca-certificates
+      - rsync
+
+    user: user
+
+  roles:
+    - init
+    - role: nginx
+      become: yes
+    - role: php
+      become: yes
+    - role: mysql
+      become: yes
+...
