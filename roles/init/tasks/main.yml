@@ -1,6 +1,5 @@
 ---
 - name: Install essentials packages
-  become: 'yes'
   apt:
     name: "{{ packages }}"
     state: latest
@@ -12,21 +11,18 @@
     name: "{{ ansible_user }}"
     groups: www-data
     append: yes
-  become: yes
 
 - name: Add user in sudoers file
-  become: 'yes'
   lineinfile:
     dest: /etc/sudoers
     state: present
-    regexp: '^%{{ user }}'
-    line: '%{{ user }} ALL=(ALL) NOPASSWD: ALL'
-    validate: 'visudo -cf %s'
+    regexp: "^%{{ user }}"
+    line: "%{{ user }} ALL=(ALL) NOPASSWD: ALL"
+    validate: "visudo -cf %s"
 
 - name: Set authorized key took from file
-  become: 'yes'
   authorized_key:
     user: "{{ user }}"
     state: present
-    key: "{{ lookup('file', ssh_keys) }}"
+    key: "{{ lookup("file", ssh_keys) }}"
 ...

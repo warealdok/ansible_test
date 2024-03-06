@@ -1,6 +1,6 @@
 ---
 - name: Install PHP
-  apt :
+  apt:
     name: "{{ php_package }}"
     state: latest
     install_recommends: yes 
