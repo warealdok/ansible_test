@@ -1,6 +1,6 @@
 ---
 - name: Install nginx
-  apt :
+  apt:
     name: nginx-full
     state: latest
 
