@@ -1,0 +1,17 @@
+---
+- name: Pull php image
+  docker_image:
+    name: php
+    source: pull
+    tag: latest
+
+- name: Start php container
+  docker_container:
+    name: php
+    image: php:8.2-fpm
+    networks:
+      - name: "{{ docker_network_name }}"
+    volumes: /opt/nginx/data:/var/www/html
+    restart_policy: always
+
+...

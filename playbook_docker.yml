@@ -1,0 +1,36 @@
+---
+- hosts: webservers
+  vars:
+    packages:
+      - neovim
+      - wget
+      - curl
+      - gnupg
+      - htop
+      - tmux
+      - git
+      - ca-certificates
+      - rsync
+
+    docker_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+    user: user
+
+    docker_network_name: webserver_network
+
+  roles:
+    - init
+    - role: docker_init
+      become: yes
+    - role: docker_nginx
+      become: yes
+    - role: docker_php
+      become: yes
+    - role: docker_mysql
+      become: yes
+...

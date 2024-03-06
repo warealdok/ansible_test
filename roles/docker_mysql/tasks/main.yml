@@ -1,0 +1,34 @@
+---
+- name: Pull mariadb image
+  docker_image:
+    name: mariadb
+    source: pull
+    tag: latest
+
+- name: Create volume directory for mariadb data
+  file:
+    path: /opt/mariadb/data
+    state: directory
+    owner: root
+    group: docker
+    mode: 0755
+    recurse: true
+
+- name: Start mariadb container
+  docker_container:
+    name: mariadb
+    image: mariadb
+    env:
+      MARIADB_ROOT_PASSWORD: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66323033376632623661653061636462336131373832323337306333343862653164336166663735
+          3132643464336335326233373833323264666639633939650a663430326230666231666639616336
+          30643531363537373933613531316136333938303934396433333131623065363862623064326365
+          3662623138366132360a376230383362383634643763626434323662393463326463306234313339
+          66353632646438316635373862356361623262316161623933366264306433373266
+    networks:
+      - name: "{{ docker_network_name }}"
+    volumes: /opt/madiadb/data:/var/lib/mysql
+    restart_policy: always
+
+...
