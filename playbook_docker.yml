@@ -24,7 +24,8 @@
     docker_network_name: webserver_network
 
   roles:
-    - init
+    - role: init
+      become: yes
     - role: docker_init
       become: yes
     - role: docker_nginx

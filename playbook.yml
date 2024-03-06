@@ -15,7 +15,8 @@
     user: user
 
   roles:
-    - init
+    - role: init
+      become: yes
     - role: nginx
       become: yes
     - role: php
